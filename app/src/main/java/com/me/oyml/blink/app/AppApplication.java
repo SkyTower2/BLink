@@ -3,7 +3,7 @@ package com.me.oyml.blink.app;
 import com.me.oyml.blink.R;
 import com.me.oyml.common.crash.CaocConfig;
 import com.me.oyml.common.utils.KLog;
-import com.me.oyml.core.base.BaseApplication;
+import com.me.oyml.common.base.BaseApplication;
 
 public class AppApplication extends BaseApplication {
     @Override

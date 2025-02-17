@@ -1,4 +1,4 @@
-package com.me.oyml.core.base;
+package com.me.oyml.common.base;
 
 import android.app.Activity;
 
