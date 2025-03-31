@@ -1,10 +1,14 @@
 package com.me.oyml.blink.app;
 
 import com.me.oyml.blink.R;
+import com.me.oyml.blink.ui.MainActivity;
 import com.me.oyml.common.crash.CaocConfig;
 import com.me.oyml.common.utils.KLog;
 import com.me.oyml.common.base.BaseApplication;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class AppApplication extends BaseApplication {
     @Override
     public void onCreate() {
@@ -14,6 +18,12 @@ public class AppApplication extends BaseApplication {
 
         //初始化全局异常崩溃
         initCrash();
+    }
+
+    
+    private void initBle() {
+        //初始化蓝牙
+
     }
 
     private void initCrash() {

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hiltAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -38,6 +40,12 @@ android {
         //noinspection DataBindingWithoutKapt
         enabled = true
     }
+
+    // Enable data binding
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
 }
 
 dependencies {
@@ -45,9 +53,34 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    implementation project(':core')
-    implementation project(':common')
+    implementation project(':module_ble')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+
+    implementation libs.material
+
+    implementation project(':core')
+    implementation project(':common')
+
+    // Hilt
+    implementation libs.hilt
+    kapt(libs.hiltCompiler)
+
+    implementation libs.activity.ktx
+
+    // Material
+    implementation libs.material.drawer
+    implementation libs.materialize
+    implementation libs.material.drawer.iconics
+
+    implementation("com.mikepenz:crossfader:1.6.0@aar")
+    implementation("androidx.slidingpanelayout:slidingpanelayout:1.1.0") {
+        version {
+            strictly("1.1.0")
+        }
+    }
+
+
+    implementation libs.swiperefreshlayout
 }
