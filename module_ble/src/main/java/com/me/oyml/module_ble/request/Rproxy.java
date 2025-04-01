@@ -73,7 +73,7 @@ public class Rproxy {
 
     public static void release() {
         requestObjs.clear();
-        BleLog.d("Rproxy", "Request proxy cache is released");
+        BleLog.d("Request proxy cache is released");
     }
 
     private List<Class> getRequestsClass(Context context, String packageName) {

@@ -106,7 +106,7 @@ public final class Ble<T extends BleDevice> {
             throw new BleException("context is null");
         }
         if (this.context != null) {
-            BleLog.e(TAG, "Ble is Initialized!");
+            BleLog.e("Ble is Initialized!");
             if (callback != null) {
                 callback.failed(BleStates.InitAlready);
             }
@@ -116,14 +116,14 @@ public final class Ble<T extends BleDevice> {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             if (callback != null) {
-                BleLog.e(TAG, "bluetoothAdapter is not available!");
+                BleLog.e("bluetoothAdapter is not available!");
                 callback.failed(BleStates.NotAvailable);
             }
             return;
         }
         if (!isSupportBle(context)) {
             if (callback != null) {
-                BleLog.e(TAG, "not support ble!");
+                BleLog.e("not support ble!");
                 callback.failed(BleStates.NotSupportBLE);
             }
             return;
@@ -134,7 +134,7 @@ public final class Ble<T extends BleDevice> {
         bleRequestImpl = BleRequestImpl.getBleRequest();
         bleRequestImpl.initialize(context);
         initBleObserver();
-        BleLog.d(TAG, "Ble init success");
+        BleLog.d("Ble init success");
         if (callback != null) {
             callback.success();
         }
@@ -477,14 +477,14 @@ public final class Ble<T extends BleDevice> {
         bleRequestImpl = null;
         Rproxy.release();
         context = null;
-        BleLog.d(TAG, "AndroidBLE already released");
+        BleLog.d("AndroidBLE already released");
     }
 
     /**
      * Release Empty all resources
      */
     private void releaseGatts() {
-        BleLog.d(TAG, "BluetoothGatts is released");
+        BleLog.d("BluetoothGatts is released");
         synchronized (locker) {
             Collection<T> connectedDevices = getConnectedDevices();
             for (T bleDevice : connectedDevices) {
@@ -501,7 +501,7 @@ public final class Ble<T extends BleDevice> {
     }
 
     private void releaseBleObserver() {
-        BleLog.d(TAG, "BleObserver is released");
+        BleLog.d("BleObserver is released");
         if (bleObserver != null) {
             bleObserver.unregisterReceiver();
             bleObserver = null;

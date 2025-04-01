@@ -60,7 +60,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
             return false;
         }
         if (connectedDevices.size() >= Ble.options().getMaxConnectNum()) {
-            BleLog.e(TAG, "Maximum number of connections Exception");
+            BleLog.e("Maximum number of connections Exception");
             doConnectException(device, BleStates.MaxConnectNumException);
             return false;
         }
@@ -113,7 +113,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
         boolean ready_connect = dispatcher.isContains(device);
         if (connecting || ready_connect) {
             if (connectCallback != null) {
-                BleLog.d(TAG, "cancel connecting device：" + device.getBleName());
+                BleLog.d("cancel connecting device：" + device.getBleName());
                 connectCallback.onConnectCancel(device);
             }
             if (connecting) {
@@ -177,7 +177,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
             for (T device : connectedDevices.values()) {
                 if (connectCallback != null) {
                     device.setConnectionState(BleDevice.DISCONNECT);
-                    BleLog.e(TAG, "System Bluetooth is disconnected>>>> " + device.getBleName());
+                    BleLog.e("System Bluetooth is disconnected>>>> " + device.getBleName());
                     connectCallback.onConnectionChanged(device);
                 }
             }
@@ -200,11 +200,11 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
         if (bleDevice == null) return;
         if (bleDevice.isConnected()) {
             connectedDevices.put(bleDevice.getBleAddress(), bleDevice);
-            BleLog.d(TAG, "connected>>>> " + bleDevice.getBleName());
+            BleLog.d("connected>>>> " + bleDevice.getBleName());
         } else if (bleDevice.isDisconnected()) {
             connectedDevices.remove(bleDevice.getBleAddress());
             devices.remove(bleDevice.getBleAddress());
-            BleLog.d(TAG, "disconnected>>>> " + bleDevice.getBleName());
+            BleLog.d("disconnected>>>> " + bleDevice.getBleName());
         }
         runOnUiThread(new Runnable() {
             @Override
@@ -227,7 +227,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
     @Override
     public void onConnectFailed(final T bleDevice, final int errorCode) {
         if (bleDevice == null) return;
-        BleLog.e(TAG, "onConnectFailed>>>> " + bleDevice.getBleName() + "\n异常码:" + errorCode);
+        BleLog.e("onConnectFailed>>>> " + bleDevice.getBleName() + "\n异常码:" + errorCode);
         bleDevice.setConnectionState(BleDevice.DISCONNECT);
         onConnectionChanged(bleDevice);
         doConnectException(bleDevice, errorCode);
@@ -236,7 +236,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
     @Override
     public void onReady(final T bleDevice) {
         if (bleDevice == null) return;
-        BleLog.d(TAG, "onReady>>>> " + bleDevice.getBleName());
+        BleLog.d("onReady>>>> " + bleDevice.getBleName());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -252,7 +252,7 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
 
     @Override
     public void onServicesDiscovered(final T device, BluetoothGatt gatt) {
-        BleLog.d(TAG, "onServicesDiscovered>>>> " + device.getBleName());
+        BleLog.d("onServicesDiscovered>>>> " + device.getBleName());
         if (connectCallback != null) {
             connectCallback.onServicesDiscovered(device, gatt);
         }
@@ -263,16 +263,16 @@ public class ConnectRequest<T extends BleDevice> implements ConnectWrapperCallba
 
     private void addBleToPool(T device) {
         if (devices.containsKey(device.getBleAddress())) {
-            BleLog.d(TAG, "addBleToPool>>>> device pool already exist device");
+            BleLog.d("addBleToPool>>>> device pool already exist device");
             return;
         }
         devices.put(device.getBleAddress(), device);
-        BleLog.d(TAG, "addBleToPool>>>> added a new device to the device pool");
+        BleLog.d("addBleToPool>>>> added a new device to the device pool");
     }
 
     public T getBleDevice(String address) {
         if (TextUtils.isEmpty(address)) {
-            BleLog.e(TAG, "By address to get BleDevice but address is null");
+            BleLog.e("By address to get BleDevice but address is null");
             return null;
         }
         return devices.get(address);

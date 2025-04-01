@@ -32,7 +32,7 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
     }
 
     public boolean reconnect(T device) {
-        BleLog.e(TAG, "reconnect>>>>>: " + autoDevices.size());
+        BleLog.e("reconnect>>>>>: " + autoDevices.size());
         for (T autoDevice : autoDevices) {
             if (TextUtils.equals(autoDevice.getBleAddress(), device.getBleAddress())) {
                 ConnectRequest<T> connectRequest = Rproxy.getRequest(ConnectRequest.class);
@@ -50,7 +50,7 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
     private void addAutoPool(T device) {
         if (device == null) return;
         if (device.isAutoConnect()) {
-            BleLog.d(TAG, "addAutoPool: " + "Add automatic connection device to the connection pool");
+            BleLog.d("addAutoPool: " + "Add automatic connection device to the connection pool");
             if (!autoDevices.contains(device)) {
                 autoDevices.add(device);
             }
@@ -102,7 +102,7 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public void openBluetooth() {
-        BleLog.i(TAG, "auto devices size：" + autoDevices.size());
+        BleLog.i("auto devices size：" + autoDevices.size());
         for (T device : autoDevices) {
             addAutoPool(device);
         }
@@ -123,10 +123,10 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
             /*After the success of the connection can be considered automatically reconnect.
             If it is automatically connected device is removed from the automatic connection pool*/
             removeAutoPool(device);
-            BleLog.e(TAG, "onConnectionChanged: removeAutoPool");
+            BleLog.e("onConnectionChanged: removeAutoPool");
         } else if (device.isDisconnected()) {
             addAutoPool(device);
-            BleLog.e(TAG, "onConnectionChanged: addAutoPool");
+            BleLog.e("onConnectionChanged: addAutoPool");
         }
     }
 }

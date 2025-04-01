@@ -33,7 +33,7 @@ public class RequestProxy implements InvocationHandler {
     public Object bindProxy(Context context, Object tar) {
         this.receiver = tar;
         //绑定委托对象，并返回代理类
-        BleLog.d(TAG, "bindProxy: " + "Binding agent successfully");
+        BleLog.d("bindProxy: " + "Binding agent successfully");
         Rproxy.init(ConnectRequest.class, MtuRequest.class,
                 NotifyRequest.class, ReadRequest.class,
                 ReadRssiRequest.class, ScanRequest.class,

@@ -61,13 +61,13 @@ public class BluetoothChangedObserver {
                 BluetoothChangedObserver observer = mObserverWeakReference.get();
                 int status = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1);
                 if (status == BluetoothAdapter.STATE_ON) {
-                    BleLog.e("", "系统蓝牙已开启");
+                    BleLog.e("系统蓝牙已开启");
                     if (observer.bleStatusCallback != null) {
                         observer.bleStatusCallback.onBluetoothStatusChanged(true);
                     }
                     DefaultReConnectHandler.provideReconnectHandler().openBluetooth();
                 } else if (status == BluetoothAdapter.STATE_OFF) {
-                    BleLog.e("", "系统蓝牙已关闭");
+                    BleLog.e("系统蓝牙已关闭");
                     if (observer.bleStatusCallback != null) {
                         observer.bleStatusCallback.onBluetoothStatusChanged(false);
                     }

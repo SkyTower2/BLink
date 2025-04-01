@@ -25,7 +25,7 @@ public class RetryDispatcher<T extends BleDevice> extends BleConnectCallback<T> 
 
     @Override
     public void retry(T device) {
-        BleLog.i(TAG, "正在尝试重试连接第" + deviceRetryMap.get(device.getBleAddress()) + "次重连: " + device.getBleName());
+        BleLog.i("正在尝试重试连接第" + deviceRetryMap.get(device.getBleAddress()) + "次重连: " + device.getBleName());
         if (!device.isAutoConnect()) {
             ConnectRequest<T> connectRequest = Rproxy.getRequest(ConnectRequest.class);
             connectRequest.connect(device);
@@ -34,7 +34,7 @@ public class RetryDispatcher<T extends BleDevice> extends BleConnectCallback<T> 
 
     @Override
     public void onConnectionChanged(BleDevice device) {
-        BleLog.i(TAG, "onConnectionChanged:" + device.getBleName() + "---连接状态:" + device.isConnected());
+        BleLog.i("onConnectionChanged:" + device.getBleName() + "---连接状态:" + device.isConnected());
         if (device.isConnected()) {
             String key = device.getBleAddress();
             deviceRetryMap.remove(key);

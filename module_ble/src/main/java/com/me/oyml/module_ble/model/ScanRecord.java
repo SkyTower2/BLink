@@ -291,7 +291,7 @@ public class ScanRecord {
             return new ScanRecord(serviceUuids, manufacturerData, serviceData,
                     advertiseFlag, txPowerLevel, localName, scanRecord);
         } catch (Exception e) {
-            BleLog.e(TAG, "unable to parse scan record: " + Arrays.toString(scanRecord));
+            BleLog.e("unable to parse scan record: " + Arrays.toString(scanRecord));
             // As the record is invalid, ignore all the parsed results for this packet
             // and return an empty record with raw scanRecord bytes in results
             return new ScanRecord(null, manufacturerData, null, -1, Integer.MIN_VALUE, null, scanRecord);

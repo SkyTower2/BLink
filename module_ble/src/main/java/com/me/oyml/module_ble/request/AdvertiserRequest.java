@@ -75,7 +75,7 @@ public class AdvertiserRequest<T extends BleDevice> {
                 ThreadUtils.asyn(new Runnable() {
                     @Override
                     public void run() {
-                        BleLog.d(TAG, "stopAdvertising: 停止广播");
+                        BleLog.d("stopAdvertising: 停止广播");
                         mAdvertiser.stopAdvertising(mAdvertiseCallback);
                     }
                 });
@@ -99,22 +99,22 @@ public class AdvertiserRequest<T extends BleDevice> {
         @Override
         public void onStartSuccess(AdvertiseSettings settingsInEffect) {
             super.onStartSuccess(settingsInEffect);
-            BleLog.d(TAG, "onStartSuccess: 开启广播成功");
+            BleLog.d("onStartSuccess: 开启广播成功");
         }
 
         @Override
         public void onStartFailure(int errorCode) {
             super.onStartFailure(errorCode);
             if (errorCode == ADVERTISE_FAILED_DATA_TOO_LARGE) {
-                BleLog.e(TAG, "Failed to start advertising as the advertise data to be broadcasted is larger than 31 bytes.");
+                BleLog.e("Failed to start advertising as the advertise data to be broadcasted is larger than 31 bytes.");
             } else if (errorCode == ADVERTISE_FAILED_TOO_MANY_ADVERTISERS) {
-                BleLog.e(TAG, "Failed to start advertising because no advertising instance is available.");
+                BleLog.e("Failed to start advertising because no advertising instance is available.");
             } else if (errorCode == ADVERTISE_FAILED_ALREADY_STARTED) {
-                BleLog.e(TAG, "Failed to start advertising as the advertising is already started");
+                BleLog.e("Failed to start advertising as the advertising is already started");
             } else if (errorCode == ADVERTISE_FAILED_INTERNAL_ERROR) {
-                BleLog.e(TAG, "Operation failed due to an internal error");
+                BleLog.e("Operation failed due to an internal error");
             } else if (errorCode == ADVERTISE_FAILED_FEATURE_UNSUPPORTED) {
-                BleLog.e(TAG, "This feature is not supported on this platform");
+                BleLog.e("This feature is not supported on this platform");
             }
         }
     };

@@ -50,7 +50,7 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
     private final ScanCallback scannerCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            BleLog.i(TAG, "onScanResult: " + result.getScanRecord().getDeviceName());
+            BleLog.i("onScanResult: " + result.getScanRecord().getDeviceName());
             BluetoothDevice device = result.getDevice();
             byte[] scanRecord = result.getScanRecord().getBytes();
             if (scanWrapperCallback != null) {
@@ -82,7 +82,7 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
 
     private void setScanSettings() {
         boolean background = Utils.isBackground(Ble.getInstance().getContext());
-        BleLog.d(TAG, "currently in the background:>>>>>" + background);
+        BleLog.d("currently in the background:>>>>>" + background);
 
         ScanFilter filter = Ble.options().getScanFilter();
         if (filter != null) {
