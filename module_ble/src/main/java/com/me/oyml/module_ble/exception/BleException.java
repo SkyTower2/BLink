@@ -2,9 +2,6 @@ package com.me.oyml.module_ble.exception;
 
 import java.io.Serializable;
 
-/**
- * description $desc$
- */
 public class BleException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = -3677084962477320584L;

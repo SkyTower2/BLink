@@ -10,15 +10,15 @@ import android.bluetooth.le.ScanSettings;
 import android.os.Build;
 import android.os.ParcelUuid;
 
+import com.me.oyml.module_ble.Ble;
+import com.me.oyml.module_ble.BleLog;
+import com.me.oyml.module_ble.callback.wrapper.ScanWrapperCallback;
+import com.me.oyml.module_ble.model.ScanRecord;
+import com.me.oyml.module_ble.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import cn.com.heaton.blelibrary.ble.Ble;
-import cn.com.heaton.blelibrary.ble.BleLog;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.ScanWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.ScanRecord;
-import cn.com.heaton.blelibrary.ble.utils.Utils;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothScannerImplLollipop extends BleScannerCompat {
@@ -50,13 +50,13 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
     private final ScanCallback scannerCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            BleLog.i(TAG, "onScanResult: "+result.getScanRecord().getDeviceName());
+            BleLog.i(TAG, "onScanResult: " + result.getScanRecord().getDeviceName());
             BluetoothDevice device = result.getDevice();
             byte[] scanRecord = result.getScanRecord().getBytes();
-            if (scanWrapperCallback != null){
+            if (scanWrapperCallback != null) {
                 scanWrapperCallback.onLeScan(device, result.getRssi(), scanRecord);
             }
-            if (Ble.options().isParseScanData){
+            if (Ble.options().isParseScanData) {
                 ScanRecord parseRecord = ScanRecord.parseFromBytes(scanRecord);
                 if (parseRecord != null && scanWrapperCallback != null) {
                     scanWrapperCallback.onParsedData(device, parseRecord);
@@ -74,7 +74,7 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
         @Override
         public void onScanFailed(int errorCode) {
             BleLog.e("Scan Failed", "Error Code: " + errorCode);
-            if (scanWrapperCallback != null){
+            if (scanWrapperCallback != null) {
                 scanWrapperCallback.onScanFailed(errorCode);
             }
         }
@@ -82,15 +82,15 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
 
     private void setScanSettings() {
         boolean background = Utils.isBackground(Ble.getInstance().getContext());
-        BleLog.d(TAG, "currently in the background:>>>>>"+background);
+        BleLog.d(TAG, "currently in the background:>>>>>" + background);
 
         ScanFilter filter = Ble.options().getScanFilter();
-        if (filter != null){
+        if (filter != null) {
             filters.add(filter);
         }
-        if (background){
+        if (background) {
             UUID uuidService = Ble.options().getUuidService();
-            if (filter == null){
+            if (filter == null) {
                 filters.add(new ScanFilter.Builder()
                         .setServiceUuid(ParcelUuid.fromString(uuidService.toString()))//8.0以上手机后台扫描，必须开启
                         .build());
@@ -98,8 +98,8 @@ class BluetoothScannerImplLollipop extends BleScannerCompat {
             scanSettings = new ScanSettings.Builder()
                     .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
                     .build();
-        }else {
-            if (filter == null){
+        } else {
+            if (filter == null) {
                 filters.clear();
             }
             scanSettings = new ScanSettings.Builder()

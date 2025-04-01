@@ -7,23 +7,20 @@ import android.os.Handler;
 
 import androidx.core.os.HandlerCompat;
 
+import com.me.oyml.module_ble.Ble;
+import com.me.oyml.module_ble.BleHandler;
+import com.me.oyml.module_ble.BleStates;
+import com.me.oyml.module_ble.annotation.Implement;
+import com.me.oyml.module_ble.callback.BleScanCallback;
+import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.ScanWrapperCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.model.ScanRecord;
+import com.me.oyml.module_ble.scan.BleScannerCompat;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.com.heaton.blelibrary.ble.Ble;
-import cn.com.heaton.blelibrary.ble.BleHandler;
-import cn.com.heaton.blelibrary.ble.BleStates;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.callback.BleScanCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.BleWrapperCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.ScanWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.model.ScanRecord;
-import cn.com.heaton.blelibrary.ble.scan.BleScannerCompat;
-
-/**
- * Created by LiuLei on 2017/10/21.
- */
 @Implement(ScanRequest.class)
 public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
 
@@ -37,7 +34,8 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
     private final BleWrapperCallback<T> bleWrapperCallback = Ble.options().getBleWrapperCallback();
 
     public void startScan(BleScanCallback<T> callback, long scanPeriod) {
-        if (callback == null) throw new IllegalArgumentException("BleScanCallback can not be null!");
+        if (callback == null)
+            throw new IllegalArgumentException("BleScanCallback can not be null!");
         bleScanCallback = callback;
         //TODO
         /*if (!Utils.isPermission(Ble.getInstance().getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)){
@@ -50,13 +48,13 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
             return;
         }
         if (scanning) {
-            if (bleScanCallback != null){
+            if (bleScanCallback != null) {
                 bleScanCallback.onScanFailed(BleStates.ScanAlready);
             }
             return;
         }
         // Stops scanning after a pre-defined scan period.
-        if (scanPeriod >= 0){
+        if (scanPeriod >= 0) {
             HandlerCompat.postDelayed(handler, new Runnable() {
                 @Override
                 public void run() {
@@ -100,7 +98,7 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
             bleScanCallback.onStart();
         }
 
-        if(bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onStart();
         }
     }
@@ -112,7 +110,7 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
             bleScanCallback.onStop();
             bleScanCallback = null;
         }
-        if(bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onStop();
         }
         scanDevices.clear();
@@ -129,7 +127,7 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
             if (bleScanCallback != null) {
                 bleScanCallback.onLeScan(bleDevice, rssi, scanRecord);
             }
-            if (bleWrapperCallback != null){
+            if (bleWrapperCallback != null) {
                 bleWrapperCallback.onLeScan(bleDevice, rssi, scanRecord);
             }
             scanDevices.put(device.getAddress(), bleDevice);
@@ -138,7 +136,7 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
                 if (bleScanCallback != null) {
                     bleScanCallback.onLeScan(bleDevice, rssi, scanRecord);
                 }
-                if (bleWrapperCallback != null){
+                if (bleWrapperCallback != null) {
                     bleWrapperCallback.onLeScan(bleDevice, rssi, scanRecord);
                 }
             }
@@ -171,7 +169,7 @@ public class ScanRequest<T extends BleDevice> implements ScanWrapperCallback {
         return scanDevices.get(address);
     }
 
-    public void cancelScanCallback(){
+    public void cancelScanCallback() {
         bleScanCallback = null;
     }
 

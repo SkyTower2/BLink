@@ -2,6 +2,9 @@ package com.me.oyml.module_ble.request;
 
 import android.content.Context;
 
+import com.me.oyml.module_ble.BleLog;
+import com.me.oyml.module_ble.annotation.Implement;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -12,26 +15,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.heaton.blelibrary.ble.BleLog;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
 import dalvik.system.DexFile;
-
-/**
- *
- * Created by LiuLei on 2018/1/22.
- */
 
 public class Rproxy {
 
     private static Map<Class, Object> requestObjs;
 
-    public static void init(Class... clss){
+    public static void init(Class... clss) {
         requestObjs = new HashMap<>();
 //        List<Class> requestsClass = getRequestsClass(context, getClass().getPackage().getName());
-        for(Class cls : clss){
-            if(cls.isAnnotationPresent(Implement.class)){
-                for(Annotation ann : cls.getDeclaredAnnotations()){
-                    if(ann instanceof Implement){
+        for (Class cls : clss) {
+            if (cls.isAnnotationPresent(Implement.class)) {
+                for (Annotation ann : cls.getDeclaredAnnotations()) {
+                    if (ann instanceof Implement) {
                         try {
                             requestObjs.put(cls, ((Implement) ann).value().newInstance());
                         } catch (InstantiationException e) {
@@ -45,22 +41,22 @@ public class Rproxy {
         }
     }
 
-    public static <T>T getRequest(Class cls){
+    public static <T> T getRequest(Class cls) {
         T t = (T) requestObjs.get(cls);
-        if (t != null){
+        if (t != null) {
             return t;
         }
         return getRequestByReflect(cls);
     }
 
-    private static <T>T getRequestByReflect(Class cls){
+    private static <T> T getRequestByReflect(Class cls) {
         try {
             Constructor constructor = cls.getDeclaredConstructor();
             constructor.setAccessible(true);
             T request = null;
             try {
                 request = (T) constructor.newInstance();
-                requestObjs.put(cls,request);
+                requestObjs.put(cls, request);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
@@ -75,12 +71,12 @@ public class Rproxy {
         throw new NoClassDefFoundError("Class not Request Type");
     }
 
-    public static void release(){
+    public static void release() {
         requestObjs.clear();
         BleLog.d("Rproxy", "Request proxy cache is released");
     }
 
-    private List<Class> getRequestsClass(Context context, String packageName){
+    private List<Class> getRequestsClass(Context context, String packageName) {
         List<Class> classRequestsList = new ArrayList<>();
         try {
             DexFile df = new DexFile(context.getPackageCodePath());//通过DexFile查找当前的APK中可执行文件
@@ -99,7 +95,7 @@ public class Rproxy {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  classRequestsList;
+        return classRequestsList;
     }
 
 

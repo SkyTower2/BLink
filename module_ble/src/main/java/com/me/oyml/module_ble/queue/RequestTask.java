@@ -1,7 +1,6 @@
 package com.me.oyml.module_ble.queue;
 
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-
+import com.me.oyml.module_ble.model.BleDevice;
 
 public class RequestTask {
     private String[] address;
@@ -55,6 +54,7 @@ public class RequestTask {
 
         /**
          * Array of connected devices
+         *
          * @param devices
          * @return
          */
@@ -74,7 +74,7 @@ public class RequestTask {
         }
 
         public RequestTask build() {
-            return new RequestTask(address,devices,data,delay);
+            return new RequestTask(address, devices, data, delay);
         }
     }
 }

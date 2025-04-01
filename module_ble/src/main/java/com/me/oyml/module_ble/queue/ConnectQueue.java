@@ -2,11 +2,11 @@ package com.me.oyml.module_ble.queue;
 
 import androidx.annotation.NonNull;
 
-import cn.com.heaton.blelibrary.ble.BleLog;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.queue.reconnect.DefaultReConnectHandler;
+import com.me.oyml.module_ble.BleLog;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.queue.reconnect.DefaultReConnectHandler;
 
-public final class ConnectQueue extends Queue{
+public final class ConnectQueue extends Queue {
 
     private static volatile ConnectQueue sInstance;
 
@@ -30,7 +30,7 @@ public final class ConnectQueue extends Queue{
     public void execute(RequestTask requestTask) {
         BleDevice device = requestTask.getDevices()[0];
         boolean reconnect = DefaultReConnectHandler.provideReconnectHandler().reconnect(device);
-        BleLog.i("ConnectQueue", "正在重新连接设备:>>>>>>>result:"+reconnect+">>>"+device.getBleName());
+        BleLog.i("ConnectQueue", "正在重新连接设备:>>>>>>>result:" + reconnect + ">>>" + device.getBleName());
     }
 
 }

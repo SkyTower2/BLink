@@ -9,9 +9,7 @@ import java.util.Arrays;
 
 /**
  * 字节的转换
- * Created by jerry on 2017/4/27.
  */
-
 public class ByteUtils {
 
     //inputstream转byte[]
@@ -60,15 +58,16 @@ public class ByteUtils {
 
     /**
      * 将字节数组转换为16进制字符串
+     *
      * @param bytes
-     * @return  01FE0835F1000000000000000000000000000000
+     * @return 01FE0835F1000000000000000000000000000000
      */
     public static String bytes2HexStr(byte[] bytes) {
         if (bytes == null) {
             return null;
         }
         StringBuilder b = new StringBuilder();
-        for (int i = 0; i<bytes.length; i++) {
+        for (int i = 0; i < bytes.length; i++) {
             b.append(String.format("%02x", bytes[i] & 0xFF));
         }
         return b.toString();
@@ -499,9 +498,10 @@ public class ByteUtils {
 
     /**
      * 拼接两个字节数组
+     *
      * @return
      */
-    public static byte[] concat(byte[] first, byte[] second){
+    public static byte[] concat(byte[] first, byte[] second) {
         byte[] result = Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;

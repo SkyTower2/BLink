@@ -89,6 +89,7 @@ public class CrcUtils {
         }
 
     }
+
     public static class CRC16 {
         public static int CRC16_IBM(byte[] source, int offset, int length) {
             int wCRCin = 0x0000;

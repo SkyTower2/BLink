@@ -28,10 +28,10 @@ abstract class Queue {
                     if (task != null) {
                         //修改问题的状态
                         RequestTask requestTask = task.getRequestTask();
-                        if (requestTask != null){
+                        if (requestTask != null) {
                             execute(requestTask);
                             //减去当前任务时间
-                            lastTime-=task.getRealTime();
+                            lastTime -= task.getRealTime();
                         }
                     }
                 } catch (Exception e) {
@@ -42,7 +42,7 @@ abstract class Queue {
         }
     };
 
-    public void put(RequestTask requestTask){
+    public void put(RequestTask requestTask) {
         long time = requestTask.getDelay();
         lastTime += time;
         //创建一个任务
@@ -51,18 +51,18 @@ abstract class Queue {
         delayQueue.put(k);
     }
 
-    public void remove(Task task){
+    public void remove(Task task) {
         delayQueue.remove(task);
     }
 
     public abstract void execute(RequestTask requestTask);
 
-    public void clear(){
+    public void clear() {
         delayQueue.clear();
         lastTime = 0L;
     }
 
-    public void shutDown(){
+    public void shutDown() {
         if (executor != null && !executor.isShutdown()) {
             executor.shutdownNow();
             executor = null;

@@ -4,42 +4,37 @@ import android.text.TextUtils;
 
 import androidx.annotation.RestrictTo;
 
+import com.me.oyml.module_ble.BleLog;
+import com.me.oyml.module_ble.callback.BleConnectCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.queue.ConnectQueue;
+import com.me.oyml.module_ble.queue.RequestTask;
+import com.me.oyml.module_ble.request.ConnectRequest;
+import com.me.oyml.module_ble.request.Rproxy;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cn.com.heaton.blelibrary.ble.BleLog;
-import cn.com.heaton.blelibrary.ble.callback.BleConnectCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.queue.ConnectQueue;
-import cn.com.heaton.blelibrary.ble.queue.RequestTask;
-import cn.com.heaton.blelibrary.ble.request.ConnectRequest;
-import cn.com.heaton.blelibrary.ble.request.Rproxy;
-
-/**
- * author: jerry
- * date: 20-11-30
- * email: superliu0911@gmail.com
- * des:
- */
 public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCallback<T> {
     private static final String TAG = "DefaultReConnectHandler";
     public static final long DEFAULT_CONNECT_DELAY = 2000L;
     private static DefaultReConnectHandler defaultReConnectHandler;
     private final ArrayList<T> autoDevices = new ArrayList<>();
 
-    private DefaultReConnectHandler() {}
+    private DefaultReConnectHandler() {
+    }
 
-    public static <T extends BleDevice>DefaultReConnectHandler<T> provideReconnectHandler() {
-        if (defaultReConnectHandler == null){
+    public static <T extends BleDevice> DefaultReConnectHandler<T> provideReconnectHandler() {
+        if (defaultReConnectHandler == null) {
             defaultReConnectHandler = new DefaultReConnectHandler();
         }
         return defaultReConnectHandler;
     }
 
-    public boolean reconnect(T device){
-        BleLog.e(TAG, "reconnect>>>>>: "+autoDevices.size());
+    public boolean reconnect(T device) {
+        BleLog.e(TAG, "reconnect>>>>>: " + autoDevices.size());
         for (T autoDevice : autoDevices) {
-            if (TextUtils.equals(autoDevice.getBleAddress(), device.getBleAddress())){
+            if (TextUtils.equals(autoDevice.getBleAddress(), device.getBleAddress())) {
                 ConnectRequest<T> connectRequest = Rproxy.getRequest(ConnectRequest.class);
                 return connectRequest.connect(device);
             }
@@ -55,8 +50,8 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
     private void addAutoPool(T device) {
         if (device == null) return;
         if (device.isAutoConnect()) {
-            BleLog.d(TAG, "addAutoPool: "+"Add automatic connection device to the connection pool");
-            if (!autoDevices.contains(device)){
+            BleLog.d(TAG, "addAutoPool: " + "Add automatic connection device to the connection pool");
+            if (!autoDevices.contains(device)) {
                 autoDevices.add(device);
             }
             RequestTask requestTask = new RequestTask.Builder()
@@ -83,22 +78,22 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
         }
     }
 
-    public void resetAutoConnect(T device, boolean autoConnect){
-        if (device == null)return;
+    public void resetAutoConnect(T device, boolean autoConnect) {
+        if (device == null) return;
         device.setAutoConnect(autoConnect);
-        if (!autoConnect){
+        if (!autoConnect) {
             removeAutoPool(device);
-            if (device.isConnecting()){
+            if (device.isConnecting()) {
                 ConnectRequest<T> connectRequest = Rproxy.getRequest(ConnectRequest.class);
                 connectRequest.disconnect(device);
             }
-        }else {//重连
+        } else {//重连
             addAutoPool(device);
         }
     }
 
     //取消所有需要自动重连的设备
-    public void cancelAutoConnect(){
+    public void cancelAutoConnect() {
         autoDevices.clear();
     }
 
@@ -106,9 +101,9 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
      * 打开蓝牙后,重新连接异常断开时的设备
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public void openBluetooth(){
-        BleLog.i(TAG, "auto devices size："+autoDevices.size());
-        for (T device: autoDevices) {
+    public void openBluetooth() {
+        BleLog.i(TAG, "auto devices size：" + autoDevices.size());
+        for (T device : autoDevices) {
             addAutoPool(device);
         }
     }
@@ -124,12 +119,12 @@ public class DefaultReConnectHandler<T extends BleDevice> extends BleConnectCall
 
     @Override
     public void onConnectionChanged(T device) {
-        if (device.isConnected()){
+        if (device.isConnected()) {
             /*After the success of the connection can be considered automatically reconnect.
             If it is automatically connected device is removed from the automatic connection pool*/
             removeAutoPool(device);
             BleLog.e(TAG, "onConnectionChanged: removeAutoPool");
-        }else if (device.isDisconnected()){
+        } else if (device.isDisconnected()) {
             addAutoPool(device);
             BleLog.e(TAG, "onConnectionChanged: addAutoPool");
         }

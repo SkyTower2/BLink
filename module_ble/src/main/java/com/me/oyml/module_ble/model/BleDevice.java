@@ -6,14 +6,11 @@ import android.os.Parcelable;
 
 import androidx.annotation.RestrictTo;
 
+import com.me.oyml.module_ble.Ble;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.com.heaton.blelibrary.ble.Ble;
-
-/**
- * Created by LiuLei on 2016/11/26.
- */
 public class BleDevice implements Parcelable {
 
     public static final int DISCONNECT = 0;
@@ -172,15 +169,15 @@ public class BleDevice implements Parcelable {
         this.mDeviceType = deviceType;
     }
 
-    public void put(String key, Object value){
-        if (mPropertyMap == null){
+    public void put(String key, Object value) {
+        if (mPropertyMap == null) {
             mPropertyMap = new HashMap<>();
         }
         mPropertyMap.put(key, value);
     }
 
-    public Object get(String key){
-        if (mPropertyMap == null){
+    public Object get(String key) {
+        if (mPropertyMap == null) {
             return null;
         }
         return mPropertyMap.get(key);

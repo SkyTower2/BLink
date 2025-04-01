@@ -16,7 +16,7 @@ public class UuidUtils {
         if (uuid.length() == 36) {
             if (lower_case) {
                 uuid_16 = uuid.substring(4, 8).toLowerCase();
-            }else {
+            } else {
                 uuid_16 = uuid.substring(4, 8).toUpperCase();
             }
             return uuid_16;
@@ -32,7 +32,7 @@ public class UuidUtils {
         String uuid_128 = "";
         if (lower_case) {
             uuid_128 = ("0000([0-9a-f][0-9a-f][0-9a-f][0-9a-f])-0000-1000-8000-00805f9b34fb".substring(0, 4) + uuid + "0000([0-9a-f][0-9a-f][0-9a-f][0-9a-f])-0000-1000-8000-00805f9b34fb".substring(38)).toLowerCase();
-        }else {
+        } else {
             uuid_128 = ("0000([0-9a-f][0-9a-f][0-9a-f][0-9a-f])-0000-1000-8000-00805f9b34fb".substring(0, 4) + uuid + "0000([0-9a-f][0-9a-f][0-9a-f][0-9a-f])-0000-1000-8000-00805f9b34fb".substring(38)).toUpperCase();
         }
         return uuid_128;

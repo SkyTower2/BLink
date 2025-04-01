@@ -2,9 +2,7 @@ package com.me.oyml.module_ble;
 
 /**
  * This class sets various static property values for Bluetooth
- * Created by liulei on 2016/11/29.
  */
-
 public class BleStates {
 
     public static final int NotInit = 2000;

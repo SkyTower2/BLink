@@ -1,9 +1,5 @@
 package com.me.oyml.module_ble.model;
 
-/**
- * Created by jerry on 2019/2/13.
- */
-
 import android.os.Build;
 import android.os.ParcelUuid;
 import android.util.ArrayMap;
@@ -11,6 +7,8 @@ import android.util.SparseArray;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import com.me.oyml.module_ble.BleLog;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -20,13 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import cn.com.heaton.blelibrary.ble.BleLog;
-
-/**
- * description $desc$
- * created by jerry on 2019/02/21.
- */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ScanRecord {
@@ -246,7 +237,7 @@ public class ScanRecord {
                     case DATA_TYPE_SERVICE_UUIDS_16_BIT_PARTIAL:
                     case DATA_TYPE_SERVICE_UUIDS_16_BIT_COMPLETE:
                         parseServiceUuid(scanRecord, currentPos,
-                                dataLength,16, serviceUuids);
+                                dataLength, 16, serviceUuids);
                         break;
                     case DATA_TYPE_SERVICE_UUIDS_32_BIT_PARTIAL:
                     case DATA_TYPE_SERVICE_UUIDS_32_BIT_COMPLETE:
@@ -353,6 +344,7 @@ public class ScanRecord {
 
     /**
      * 转化方法
+     *
      * @param uuidBytes
      * @return
      */
@@ -381,7 +373,7 @@ public class ScanRecord {
             shortUuid = uuidBytes[0] & 0xFF;
             shortUuid += (uuidBytes[1] & 0xFF) << 8;
         } else {
-            shortUuid = uuidBytes[0] & 0xFF ;
+            shortUuid = uuidBytes[0] & 0xFF;
             shortUuid += (uuidBytes[1] & 0xFF) << 8;
             shortUuid += (uuidBytes[2] & 0xFF) << 16;
             shortUuid += (uuidBytes[3] & 0xFF) << 24;

@@ -1,22 +1,19 @@
 package com.me.oyml.module_ble.request;
 
-import cn.com.heaton.blelibrary.ble.BleRequestImpl;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.callback.BleReadRssiCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.ReadRssiWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
+import com.me.oyml.module_ble.BleRequestImpl;
+import com.me.oyml.module_ble.annotation.Implement;
+import com.me.oyml.module_ble.callback.BleReadRssiCallback;
+import com.me.oyml.module_ble.model.BleDevice;
 
-/**
- *
- * Created by LiuLei on 2017/10/23.
- */
+import com.me.oyml.module_ble.callback.wrapper.ReadRssiWrapperCallback;
+
 @Implement(ReadRssiRequest.class)
 public class ReadRssiRequest<T extends BleDevice> implements ReadRssiWrapperCallback<T> {
 
     private BleReadRssiCallback<T> readRssiCallback;
     private final BleRequestImpl<T> bleRequest = BleRequestImpl.getBleRequest();
 
-    public boolean readRssi(T device, BleReadRssiCallback<T> callback){
+    public boolean readRssi(T device, BleReadRssiCallback<T> callback) {
         this.readRssiCallback = callback;
         boolean result = false;
         if (bleRequest != null) {
@@ -27,7 +24,7 @@ public class ReadRssiRequest<T extends BleDevice> implements ReadRssiWrapperCall
 
     @Override
     public void onReadRssiSuccess(T device, int rssi) {
-        if(readRssiCallback != null){
+        if (readRssiCallback != null) {
             readRssiCallback.onReadRssiSuccess(device, rssi);
         }
     }

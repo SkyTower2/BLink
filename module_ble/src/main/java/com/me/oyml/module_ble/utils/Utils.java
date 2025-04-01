@@ -12,10 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-/**
- * description $desc$
- * created by jerry on 2019/8/14.
- */
 public class Utils {
 
     public static boolean isBackground(Context context) {

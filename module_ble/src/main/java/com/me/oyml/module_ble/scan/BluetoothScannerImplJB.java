@@ -3,7 +3,7 @@ package com.me.oyml.module_ble.scan;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
-import cn.com.heaton.blelibrary.ble.callback.wrapper.ScanWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.ScanWrapperCallback;
 
 class BluetoothScannerImplJB extends BleScannerCompat {
 

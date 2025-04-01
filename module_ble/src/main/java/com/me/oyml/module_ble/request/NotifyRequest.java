@@ -2,19 +2,16 @@ package com.me.oyml.module_ble.request;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 
+import com.me.oyml.module_ble.Ble;
+import com.me.oyml.module_ble.BleRequestImpl;
+import com.me.oyml.module_ble.annotation.Implement;
+import com.me.oyml.module_ble.callback.BleNotifyCallback;
+import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.NotifyWrapperCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+
 import java.util.UUID;
 
-import cn.com.heaton.blelibrary.ble.Ble;
-import cn.com.heaton.blelibrary.ble.BleRequestImpl;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.callback.BleNotifyCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.BleWrapperCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.NotifyWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-
-/**
- * Created by LiuLei on 2017/10/23.
- */
 @Implement(NotifyRequest.class)
 public class NotifyRequest<T extends BleDevice> implements NotifyWrapperCallback<T> {
 
@@ -30,7 +27,7 @@ public class NotifyRequest<T extends BleDevice> implements NotifyWrapperCallback
 
     public void notifyByUuid(T device, boolean enable, UUID serviceUUID, UUID characteristicUUID, BleNotifyCallback<T> callback) {
         notifyCallback = callback;
-        bleRequest.setCharacteristicNotificationByUuid(device.getBleAddress(),enable, serviceUUID, characteristicUUID);
+        bleRequest.setCharacteristicNotificationByUuid(device.getBleAddress(), enable, serviceUUID, characteristicUUID);
     }
 
     @Deprecated
@@ -41,43 +38,43 @@ public class NotifyRequest<T extends BleDevice> implements NotifyWrapperCallback
 
     @Override
     public void onChanged(final T device, final BluetoothGattCharacteristic characteristic) {
-        if (null != notifyCallback){
+        if (null != notifyCallback) {
             notifyCallback.onChanged(device, characteristic);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onChanged(device, characteristic);
         }
     }
 
     @Override
     public void onNotifySuccess(final T device) {
-        if (null != notifyCallback){
+        if (null != notifyCallback) {
             notifyCallback.onNotifySuccess(device);
         }
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onNotifySuccess(device);
         }
     }
 
     @Override
     public void onNotifyFailed(T device, int failedCode) {
-        if (null != notifyCallback){
+        if (null != notifyCallback) {
             notifyCallback.onNotifyFailed(device, failedCode);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onNotifyFailed(device, failedCode);
         }
     }
 
     @Override
     public void onNotifyCanceled(T device) {
-        if (null != notifyCallback){
+        if (null != notifyCallback) {
             notifyCallback.onNotifyCanceled(device);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onNotifyCanceled(device);
         }
     }

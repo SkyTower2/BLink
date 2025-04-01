@@ -4,19 +4,18 @@ import android.bluetooth.BluetoothGattDescriptor;
 
 import java.util.UUID;
 
-import cn.com.heaton.blelibrary.ble.Ble;
-import cn.com.heaton.blelibrary.ble.BleRequestImpl;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.callback.BleReadDescCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleWriteDescCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.BleWrapperCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.DescWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
+import com.me.oyml.module_ble.annotation.Implement;
 
-/**
- *
- * Created by LiuLei on 2017/10/23.
- */
+import com.me.oyml.module_ble.callback.BleReadDescCallback;
+import com.me.oyml.module_ble.callback.BleWriteDescCallback;
+import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.DescWrapperCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.Ble;
+
+import com.me.oyml.module_ble.BleRequestImpl;
+
+
 @Implement(DescriptorRequest.class)
 public class DescriptorRequest<T extends BleDevice> implements DescWrapperCallback<T> {
 
@@ -25,12 +24,12 @@ public class DescriptorRequest<T extends BleDevice> implements DescWrapperCallba
     private final BleWrapperCallback<T> bleWrapperCallback = Ble.options().getBleWrapperCallback();
     private final BleRequestImpl<T> bleRequest = BleRequestImpl.getBleRequest();
 
-    public boolean readDes(T device, UUID serviceUUID, UUID characteristicUUID, UUID descriptorUUID, BleReadDescCallback<T> callback){
+    public boolean readDes(T device, UUID serviceUUID, UUID characteristicUUID, UUID descriptorUUID, BleReadDescCallback<T> callback) {
         this.bleReadDescCallback = callback;
         return bleRequest.readDescriptor(device.getBleAddress(), serviceUUID, characteristicUUID, descriptorUUID);
     }
 
-    public boolean writeDes(T device, byte[] data, UUID serviceUUID, UUID characteristicUUID, UUID descriptorUUID, BleWriteDescCallback<T> callback){
+    public boolean writeDes(T device, byte[] data, UUID serviceUUID, UUID characteristicUUID, UUID descriptorUUID, BleWriteDescCallback<T> callback) {
         this.bleWriteDescCallback = callback;
         return bleRequest.writeDescriptor(device.getBleAddress(), data, serviceUUID, characteristicUUID, descriptorUUID);
     }
@@ -38,44 +37,44 @@ public class DescriptorRequest<T extends BleDevice> implements DescWrapperCallba
 
     @Override
     public void onDescReadSuccess(T device, BluetoothGattDescriptor descriptor) {
-        if (bleReadDescCallback != null){
+        if (bleReadDescCallback != null) {
             bleReadDescCallback.onDescReadSuccess(device, descriptor);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onDescReadSuccess(device, descriptor);
         }
     }
 
     @Override
     public void onDescReadFailed(T device, int failedCode) {
-        if (bleReadDescCallback != null){
+        if (bleReadDescCallback != null) {
             bleReadDescCallback.onDescReadFailed(device, failedCode);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onDescReadFailed(device, failedCode);
         }
     }
 
     @Override
     public void onDescWriteSuccess(T device, BluetoothGattDescriptor descriptor) {
-        if (bleWriteDescCallback != null){
+        if (bleWriteDescCallback != null) {
             bleWriteDescCallback.onDescWriteSuccess(device, descriptor);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onDescWriteSuccess(device, descriptor);
         }
     }
 
     @Override
     public void onDescWriteFailed(T device, int failedCode) {
-        if (bleWriteDescCallback != null){
+        if (bleWriteDescCallback != null) {
             bleWriteDescCallback.onDescWriteFailed(device, failedCode);
         }
 
-        if (bleWrapperCallback != null){
+        if (bleWrapperCallback != null) {
             bleWrapperCallback.onDescWriteFailed(device, failedCode);
         }
     }

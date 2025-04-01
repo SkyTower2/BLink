@@ -1,17 +1,13 @@
 package com.me.oyml.module_ble.request;
 
-import cn.com.heaton.blelibrary.ble.Ble;
-import cn.com.heaton.blelibrary.ble.BleRequestImpl;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.callback.BleMtuCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.BleWrapperCallback;
-import cn.com.heaton.blelibrary.ble.callback.wrapper.MtuWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
+import com.me.oyml.module_ble.Ble;
+import com.me.oyml.module_ble.BleRequestImpl;
+import com.me.oyml.module_ble.annotation.Implement;
+import com.me.oyml.module_ble.callback.BleMtuCallback;
+import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.MtuWrapperCallback;
+import com.me.oyml.module_ble.model.BleDevice;
 
-/**
- *
- * Created by LiuLei on 2017/10/23.
- */
 @Implement(MtuRequest.class)
 public class MtuRequest<T extends BleDevice> implements MtuWrapperCallback<T> {
 

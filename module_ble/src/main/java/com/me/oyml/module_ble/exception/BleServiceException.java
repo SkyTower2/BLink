@@ -1,9 +1,5 @@
 package com.me.oyml.module_ble.exception;
 
-/**
- * Created by LiuLei on 2017/10/19.
- */
-
 public class BleServiceException extends BleException {
 
 

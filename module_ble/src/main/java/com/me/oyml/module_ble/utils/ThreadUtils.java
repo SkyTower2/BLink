@@ -13,10 +13,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- *
- * Created by LiuLei on 16/10/28.
- */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ThreadUtils {
 
@@ -33,7 +29,7 @@ public class ThreadUtils {
     public static void ui(Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
-        }else {
+        } else {
             sHandler.post(runnable);
         }
     }
@@ -54,7 +50,7 @@ public class ThreadUtils {
         mSerialExecutor.execute(task);
     }
 
-    public static void submit(Callable callable){
+    public static void submit(Callable callable) {
         executorService.submit(callable);
     }
 }

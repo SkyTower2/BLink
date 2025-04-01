@@ -1,20 +1,16 @@
 package com.me.oyml.module_ble.proxy;
+
+import com.me.oyml.module_ble.callback.BleConnectCallback;
+import com.me.oyml.module_ble.callback.BleMtuCallback;
+import com.me.oyml.module_ble.callback.BleNotifyCallback;
+import com.me.oyml.module_ble.callback.BleReadCallback;
+import com.me.oyml.module_ble.callback.BleReadRssiCallback;
+import com.me.oyml.module_ble.callback.BleScanCallback;
+import com.me.oyml.module_ble.callback.BleWriteCallback;
+import com.me.oyml.module_ble.callback.BleWriteEntityCallback;
+import com.me.oyml.module_ble.model.EntityData;
+
 import java.util.UUID;
-
-import cn.com.heaton.blelibrary.ble.callback.BleConnectCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleMtuCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleNotifyCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleReadCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleReadRssiCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleScanCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleWriteCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleWriteEntityCallback;
-import cn.com.heaton.blelibrary.ble.model.EntityData;
-
-/**
- *
- * Created by LiuLei on 2017/10/30.
- */
 
 public interface RequestListener<T> {
 
@@ -44,11 +40,11 @@ public interface RequestListener<T> {
 
     boolean readRssi(T device, BleReadRssiCallback<T> callback);
 
-    boolean write(T device, byte[]data, BleWriteCallback<T> callback);
+    boolean write(T device, byte[] data, BleWriteCallback<T> callback);
 
-    boolean writeByUuid(T device, byte[]data, UUID serviceUUID, UUID characteristicUUID, BleWriteCallback<T> callback);
+    boolean writeByUuid(T device, byte[] data, UUID serviceUUID, UUID characteristicUUID, BleWriteCallback<T> callback);
 
-    void writeEntity(T device, final byte[]data, int packLength, int delay, BleWriteEntityCallback<T> callback);
+    void writeEntity(T device, final byte[] data, int packLength, int delay, BleWriteEntityCallback<T> callback);
 
     void writeEntity(EntityData entityData, BleWriteEntityCallback<T> callback);
 

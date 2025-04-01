@@ -9,18 +9,12 @@ import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.os.Build;
 import android.os.Handler;
 
-import cn.com.heaton.blelibrary.ble.BleHandler;
-import cn.com.heaton.blelibrary.ble.BleLog;
-import cn.com.heaton.blelibrary.ble.annotation.Implement;
-import cn.com.heaton.blelibrary.ble.exception.AdvertiserUnsupportException;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.utils.ThreadUtils;
-
-/**
- * TODO 2020/02/01
- * description $desc$
- * created by jerry on 2019/02/21.
- */
+import com.me.oyml.module_ble.BleHandler;
+import com.me.oyml.module_ble.BleLog;
+import com.me.oyml.module_ble.annotation.Implement;
+import com.me.oyml.module_ble.exception.AdvertiserUnsupportException;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.utils.ThreadUtils;
 
 @Implement(AdvertiserRequest.class)
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -33,7 +27,7 @@ public class AdvertiserRequest<T extends BleDevice> {
     private AdvertiseSettings myAdvertiseSettings;
     private AdvertiseData myAdvertiseData;
 
-    private void setAdvertiserSettings(){
+    private void setAdvertiserSettings() {
         mAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser();
         if (mAdvertiser == null) {
             try {
@@ -51,10 +45,10 @@ public class AdvertiserRequest<T extends BleDevice> {
                 .build();
     }
 
-    public void startAdvertising(final byte[] payload, final AdvertiseSettings advertiseSettings){
-        if (bluetoothAdapter.isEnabled()){
+    public void startAdvertising(final byte[] payload, final AdvertiseSettings advertiseSettings) {
+        if (bluetoothAdapter.isEnabled()) {
             mHandler.removeCallbacks(stopAvertiseRunnable);
-            if(mAdvertiser != null){
+            if (mAdvertiser != null) {
                 ThreadUtils.asyn(new Runnable() {
                     @Override
                     public void run() {
@@ -76,8 +70,8 @@ public class AdvertiserRequest<T extends BleDevice> {
     }
 
     public void stopAdvertising() {
-        if (bluetoothAdapter.isEnabled()){
-            if(mAdvertiser != null){
+        if (bluetoothAdapter.isEnabled()) {
+            if (mAdvertiser != null) {
                 ThreadUtils.asyn(new Runnable() {
                     @Override
                     public void run() {
@@ -89,7 +83,7 @@ public class AdvertiserRequest<T extends BleDevice> {
         }
     }
 
-    public void stopAdvertising(Long delay){
+    public void stopAdvertising(Long delay) {
         mHandler.postDelayed(stopAvertiseRunnable, delay);
     }
 

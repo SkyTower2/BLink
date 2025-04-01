@@ -18,7 +18,7 @@ package com.me.oyml.module_ble.scan;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Build;
 
-import cn.com.heaton.blelibrary.ble.callback.wrapper.ScanWrapperCallback;
+import com.me.oyml.module_ble.callback.wrapper.ScanWrapperCallback;
 
 public abstract class BleScannerCompat {
 
@@ -35,15 +35,15 @@ public abstract class BleScannerCompat {
         return mInstance = new BluetoothScannerImplJB();
     }
 
-    public void startScan(ScanWrapperCallback scanWrapperCallback){
+    public void startScan(ScanWrapperCallback scanWrapperCallback) {
         this.scanWrapperCallback = scanWrapperCallback;
         scanWrapperCallback.onStart();
     }
 
     //TODO 添加过滤扫描设备的接口(uuid,设备名,设备地址等)
 
-    public void stopScan(){
-        if (scanWrapperCallback != null){
+    public void stopScan() {
+        if (scanWrapperCallback != null) {
             scanWrapperCallback.onStop();
         }
     }

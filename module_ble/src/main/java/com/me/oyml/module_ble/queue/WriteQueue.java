@@ -2,10 +2,10 @@ package com.me.oyml.module_ble.queue;
 
 import androidx.annotation.NonNull;
 
-import cn.com.heaton.blelibrary.ble.BleRequestImpl;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
+import com.me.oyml.module_ble.BleRequestImpl;
+import com.me.oyml.module_ble.model.BleDevice;
 
-public final class WriteQueue extends Queue{
+public final class WriteQueue extends Queue {
 
     private static volatile WriteQueue sInstance;
     protected BleRequestImpl bleRequest;
@@ -30,7 +30,7 @@ public final class WriteQueue extends Queue{
     @Override
     public void execute(RequestTask requestTask) {
         BleDevice[] devices = requestTask.getDevices();
-        for (BleDevice device: devices) {
+        for (BleDevice device : devices) {
             bleRequest.writeCharacteristic(device.getBleAddress(), requestTask.getData());
         }
     }

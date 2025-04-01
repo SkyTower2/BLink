@@ -1,27 +1,29 @@
 package com.me.oyml.module_ble.proxy;
 
+import com.me.oyml.module_ble.callback.BleConnectCallback;
+import com.me.oyml.module_ble.callback.BleMtuCallback;
+import com.me.oyml.module_ble.callback.BleNotifyCallback;
+import com.me.oyml.module_ble.callback.BleReadCallback;
+import com.me.oyml.module_ble.callback.BleReadRssiCallback;
+import com.me.oyml.module_ble.callback.BleScanCallback;
+import com.me.oyml.module_ble.callback.BleWriteCallback;
+import com.me.oyml.module_ble.callback.BleWriteEntityCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.model.EntityData;
+import com.me.oyml.module_ble.request.ConnectRequest;
+import com.me.oyml.module_ble.request.MtuRequest;
+import com.me.oyml.module_ble.request.NotifyRequest;
+import com.me.oyml.module_ble.request.ReadRequest;
+import com.me.oyml.module_ble.request.ReadRssiRequest;
+import com.me.oyml.module_ble.request.Rproxy;
+import com.me.oyml.module_ble.request.ScanRequest;
+import com.me.oyml.module_ble.request.WriteRequest;
+
 import java.util.UUID;
-
-import cn.com.heaton.blelibrary.ble.callback.BleConnectCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleMtuCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleNotifyCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleReadCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleReadRssiCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleScanCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleWriteCallback;
-import cn.com.heaton.blelibrary.ble.callback.BleWriteEntityCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.model.EntityData;
-import cn.com.heaton.blelibrary.ble.request.*;
-
-/**
- *
- * Created by LiuLei on 2017/10/30.
- */
 
 public class RequestImpl<T extends BleDevice> implements RequestListener<T> {
 
-    public static RequestImpl newRequestImpl(){
+    public static RequestImpl newRequestImpl() {
         return new RequestImpl();
     }
 

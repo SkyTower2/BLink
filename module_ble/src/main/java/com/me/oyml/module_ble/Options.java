@@ -14,11 +14,11 @@ import android.os.Build;
 import androidx.annotation.IntRange;
 import androidx.annotation.RequiresApi;
 
-import java.util.UUID;
+import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
+import com.me.oyml.module_ble.model.BleDevice;
+import com.me.oyml.module_ble.model.BleFactory;
 
-import cn.com.heaton.blelibrary.ble.callback.wrapper.BleWrapperCallback;
-import cn.com.heaton.blelibrary.ble.model.BleDevice;
-import cn.com.heaton.blelibrary.ble.model.BleFactory;
+import java.util.UUID;
 
 /**
  * 蓝牙相关参数配置类
@@ -81,7 +81,7 @@ public class Options {
 
     private BleFactory factory;
 
-    public Options setScanPeriod(long scanPeriod){
+    public Options setScanPeriod(long scanPeriod) {
         this.scanPeriod = scanPeriod;
         return this;
     }
@@ -148,7 +148,7 @@ public class Options {
         return connectFailedRetryCount;
     }
 
-    public Options setConnectFailedRetryCount(@IntRange(from = 0, to = 5)int connectFailedRetryCount) {
+    public Options setConnectFailedRetryCount(@IntRange(from = 0, to = 5) int connectFailedRetryCount) {
         this.connectFailedRetryCount = connectFailedRetryCount;
         return this;
     }
@@ -157,7 +157,7 @@ public class Options {
         return maxConnectNum;
     }
 
-    public Options setMaxConnectNum(@IntRange(from = 1, to = 7)int maxConnectNum) {
+    public Options setMaxConnectNum(@IntRange(from = 1, to = 7) int maxConnectNum) {
         this.maxConnectNum = maxConnectNum;
         return this;
     }
@@ -209,8 +209,8 @@ public class Options {
         return this;
     }
 
-    public BleFactory getFactory(){
-        if (factory == null){
+    public BleFactory getFactory() {
+        if (factory == null) {
             factory = new BleFactory() {
                 @Override
                 public BleDevice create(String address, String name) {
@@ -321,11 +321,11 @@ public class Options {
         return this;
     }
 
-    public <T extends BleDevice> Ble<T> create(Context context){
+    public <T extends BleDevice> Ble<T> create(Context context) {
         return create(context, null);
     }
 
-    public <T extends BleDevice> Ble<T> create(Context context, Ble.InitCallback callback){
+    public <T extends BleDevice> Ble<T> create(Context context, Ble.InitCallback callback) {
         return Ble.create(context, callback);
     }
 

@@ -2,12 +2,8 @@ package com.me.oyml.module_ble.model;
 
 import android.text.TextUtils;
 
-import cn.com.heaton.blelibrary.ble.exception.BleWriteException;
+import com.me.oyml.module_ble.exception.BleWriteException;
 
-/**
- * description $desc$
- * created by jerry on 2019/5/27.
- */
 public class EntityData {
 
     private static final int DEFAULT_LENGTH = 20;
@@ -16,7 +12,7 @@ public class EntityData {
     //蓝牙设备地址
     private String address;
     //大数据字节数组对象
-    private byte[]data;
+    private byte[] data;
     //每包大小
     private int packLength = DEFAULT_LENGTH;
     //每包发送间隔
@@ -41,7 +37,8 @@ public class EntityData {
         this(false, address, data, packLength, delay, false);
     }
 
-    public EntityData(){}
+    public EntityData() {
+    }
 
     public EntityData(String address, byte[] data, int packLength) {
         this(false, address, data, packLength, 0L, false);
@@ -64,7 +61,7 @@ public class EntityData {
     }
 
     public byte[] getData() {
-        if(data == null){
+        if (data == null) {
             data = new byte[0];
         }
         return data;
@@ -101,7 +98,7 @@ public class EntityData {
     public static class Builder {
         private boolean autoWriteMode;
         private String address;
-        private byte[]data;
+        private byte[] data;
         private int packLength = DEFAULT_LENGTH;
         private long delay;
         private boolean lastPackComplete;
@@ -160,23 +157,23 @@ public class EntityData {
             return this;
         }
 
-        public EntityData build(){
+        public EntityData build() {
             return new EntityData(autoWriteMode, address, data, packLength, delay, lastPackComplete);
         }
     }
 
     public static void validParms(EntityData entityData) {
         String exception = "";
-        if (TextUtils.isEmpty(entityData.address)){
+        if (TextUtils.isEmpty(entityData.address)) {
             exception = "ble address isn't null";
         }
-        if (entityData.data == null){
-           exception = "ble data isn't null";
+        if (entityData.data == null) {
+            exception = "ble data isn't null";
         }
-        if (entityData.packLength <= 0){
+        if (entityData.packLength <= 0) {
             exception = "The data length per packet cannot be less than 0";
         }
-        if (!TextUtils.isEmpty(exception)){
+        if (!TextUtils.isEmpty(exception)) {
             throw new BleWriteException(exception);
         }
     }
