@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.util.Log;
 
+import com.me.oyml.common.utils.KLog;
 import com.me.oyml.module_ble.callback.wrapper.BleWrapperCallback;
 import com.me.oyml.module_ble.model.BleDevice;
 import com.me.oyml.module_ble.utils.ByteUtils;
@@ -23,60 +24,60 @@ public class MyBleWrapperCallback extends BleWrapperCallback<BleDevice> {
     @Override
     public void onChanged(BleDevice device, BluetoothGattCharacteristic characteristic) {
         super.onChanged(device, characteristic);
-        Log.d(TAG, "onChanged: "+ ByteUtils.toHexString(characteristic.getValue()));
+        KLog.d("onChanged: " + ByteUtils.toHexString(characteristic.getValue()));
     }
 
     @Override
     public void onServicesDiscovered(BleDevice device, BluetoothGatt gatt) {
         super.onServicesDiscovered(device, gatt);
-        Log.d(TAG, "onServicesDiscovered: ");
+        KLog.d("onServicesDiscovered: ");
     }
 
     @Override
     public void onWriteSuccess(BleDevice device, BluetoothGattCharacteristic characteristic) {
         super.onWriteSuccess(device, characteristic);
-        Log.d(TAG, "onWriteSuccess: ");
+        KLog.d("onWriteSuccess: ");
     }
 
     @Override
     public void onConnectionChanged(BleDevice device) {
         super.onConnectionChanged(device);
-        Log.d(TAG, "onConnectionChanged: "+device.toString());
+        KLog.d("onConnectionChanged: " + device.toString());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: ");
+        KLog.d("onStop: ");
     }
 
     @Override
     public void onLeScan(BleDevice device, int rssi, byte[] scanRecord) {
         super.onLeScan(device, rssi, scanRecord);
-        Log.d(TAG, "onLeScan: "+device.toString());
+        KLog.d("onLeScan: " + device.toString());
     }
 
     @Override
     public void onNotifySuccess(BleDevice device) {
         super.onNotifySuccess(device);
-        Log.d(TAG, "onNotifySuccess: ");
+        KLog.d("onNotifySuccess: ");
     }
 
     @Override
     public void onNotifyFailed(BleDevice device, int failedCode) {
-        Log.d(TAG, "onNotifyFailed: "+failedCode);
+        KLog.d("onNotifyFailed: " + failedCode);
     }
 
     @Override
     public void onNotifyCanceled(BleDevice device) {
         super.onNotifyCanceled(device);
-        Log.d(TAG, "onNotifyCanceled: ");
+        KLog.d("onNotifyCanceled: ");
     }
 
     @Override
     public void onReady(BleDevice device) {
         super.onReady(device);
-        Log.d(TAG, "onReady: ");
+        KLog.d("onReady: ");
     }
 
     @Override

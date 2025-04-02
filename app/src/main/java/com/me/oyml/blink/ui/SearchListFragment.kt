@@ -1,15 +1,21 @@
 package com.me.oyml.blink.ui
 
 import android.os.Handler
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.me.oyml.blink.R
 import com.me.oyml.blink.databinding.FragmentSearchListBinding
 import com.me.oyml.common.base.BaseVBFragment
 import com.me.oyml.common.item.VegaLayoutManager
+import com.me.oyml.common.utils.KLog
+import com.me.oyml.module_ble.Ble
+import com.me.oyml.module_ble.callback.BleScanCallback
+import com.me.oyml.module_ble.model.ScanRecord
 
 class SearchListFragment : BaseVBFragment<FragmentSearchListBinding>() {
     private val dataList = ArrayList<StockEntity>()
@@ -19,9 +25,18 @@ class SearchListFragment : BaseVBFragment<FragmentSearchListBinding>() {
     private lateinit var handler: Handler
     private var currentPage = 0
 
+    private lateinit var floatingActionButton: FloatingActionButton
+    private val ble: Ble<BleRssiDevice> = Ble.getInstance()
+    private lateinit var bleRssiDevices: ArrayList<BleRssiDevice>
+
     override fun FragmentSearchListBinding.initBinding() {
 
-        // 3. recyclerView数据填充
+        bleRssiDevices = ArrayList()
+
+        // 悬浮按钮
+        floatingActionButton = floatingButton
+
+        // recyclerView数据填充
         val recyclerView: RecyclerView = mainRecyclerView
         recyclerView.layoutManager = VegaLayoutManager()
         adapter = getAdapter()
@@ -33,11 +48,70 @@ class SearchListFragment : BaseVBFragment<FragmentSearchListBinding>() {
         appendDataList()
         adapter.notifyDataSetChanged()
 
-        // 4. refreshLayout
+        // refreshLayout 下拉刷新
         refreshLayout.setOnRefreshListener {
             currentPage = 0
             requestHttp()
+            KLog.d("下拉刷新")
         }
+
+        floatingActionButton.setOnClickListener {
+            rescan()
+        }
+    }
+
+    private fun rescan() {
+        if (ble != null && !ble.isScanning) {
+            bleRssiDevices.clear()
+            adapter.notifyDataSetChanged()
+            ble.startScan(scanCallback)
+        }
+    }
+
+    private val scanCallback = object : BleScanCallback<BleRssiDevice>() {
+        override fun onLeScan(device: BleRssiDevice, rssi: Int, scanRecord: ByteArray) {
+            synchronized(ble.locker) {
+                for (i in bleRssiDevices.indices) {
+                    val rssiDevice = bleRssiDevices[i]
+                    if (TextUtils.equals(rssiDevice.bleAddress, device.bleAddress)) {
+                        if (rssiDevice.rssi != rssi && System.currentTimeMillis() - rssiDevice.rssiUpdateTime > 1000L) {
+                            rssiDevice.rssiUpdateTime = System.currentTimeMillis()
+                            rssiDevice.rssi = rssi
+                            adapter.notifyItemChanged(i)
+                        }
+                        return
+                    }
+                }
+                device.scanRecord = ScanRecord.parseFromBytes(scanRecord)
+                device.rssi = rssi
+                bleRssiDevices.add(device)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        override fun onStart() {
+            super.onStart()
+            startBannerLoadingAnim()
+        }
+
+        override fun onStop() {
+            super.onStop()
+            stopBannerLoadingAnim()
+        }
+
+        override fun onScanFailed(errorCode: Int) {
+            super.onScanFailed(errorCode)
+            KLog.e("onScanFailed: $errorCode")
+        }
+    }
+
+    private fun startBannerLoadingAnim() {
+        floatingActionButton.setImageResource(R.drawable.ic_loading)
+    }
+
+    private fun stopBannerLoadingAnim() {
+        floatingActionButton.setImageResource(R.drawable.ic_bluetooth_audio_black_24dp)
+        floatingActionButton.rotation = 0f
     }
 
     private fun requestHttp() {
@@ -77,7 +151,10 @@ class SearchListFragment : BaseVBFragment<FragmentSearchListBinding>() {
 
     private fun getAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): RecyclerView.ViewHolder {
                 val view = layoutInflater.inflate(R.layout.recycler_item, parent, false)
                 return MyViewHolder(view)
             }

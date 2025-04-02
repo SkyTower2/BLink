@@ -66,12 +66,12 @@ public class AppApplication extends BaseApplication {
                 .create(mApplication, new Ble.InitCallback() {
                     @Override
                     public void success() {
-                        BleLog.e("初始化成功");
+                        BleLog.d("蓝牙初始化成功");
                     }
 
                     @Override
                     public void failed(int failedCode) {
-                        BleLog.e("初始化失败：" + failedCode);
+                        BleLog.e("蓝牙初始化失败：" + failedCode);
                     }
                 });
     }
