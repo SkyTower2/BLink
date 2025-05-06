@@ -201,7 +201,8 @@ public class VegaLayoutManager extends RecyclerView.LayoutManager {
         }
         // 往后搜索复用
         for (int i = lastVisiblePosition + 1; i < itemCount; i++) {
-            if (Rect.intersects(displayRect, locationRects.get(i)) &&
+            Rect itemRect = locationRects.get(i);
+            if (itemRect != null && Rect.intersects(displayRect, locationRects.get(i)) &&
                     !attachedItems.get(i)) {
                 reuseItemOnSroll(i, false);
             } else {

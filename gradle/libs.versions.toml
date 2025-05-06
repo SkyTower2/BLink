@@ -1,8 +1,8 @@
 [versions]
-mmkv = "2.0.0"
+mmkv = "2.1.0"
 agp = "8.8.1"
 kotlin = "2.1.10"
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -14,13 +14,15 @@ targetSdk = "34"
 versionCode = "1"
 versionName = "1.0"
 roomVersion = "2.6.1"
-lifecycle_KTX_version = "2.3.1"
+lifecycle_KTX_version = "2.6.2"
 gson = "2.8.8"
 hilt = "2.55"
 activityKtx = "1.8.0"
 materialDrawer = "9.0.2"  # MaterialDrawer 版本
 recyclerview = "1.4.0"
 swiperefreshlayout = "1.1.0"
+easyThread = "0.6.0"
+arouter = "1.5.2"
 
 [libraries]
 mmkv = { group = "com.tencent", name = "mmkv", version.ref = "mmkv" }
@@ -32,13 +34,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Room数据库
-room = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
-roomTesting = { group = "androidx.room", name = "room-testing", version.ref = "roomVersion" }
-
-# RxJava2
-roomRxJava2 = { group = "androidx.room", name = "room-rxjava2", version.ref = "roomVersion" }
 
 # viewmodel
 lifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_KTX_version" }
@@ -63,6 +60,13 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 
 # swiperefreshlayout
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+# 多线程
+easyThread = { group = "com.github.yjfnypeu", name = "EasyThread", version.ref = "easyThread" }
+
+#arouter路由
+arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouter" }
+arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouter" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

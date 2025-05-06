@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BLink</string>
+    <string name="blink_search_list">搜索列表</string>
+    <string name="blink_search_settings">搜索设置</string>
+    <string name="blink_search_settings_subtitle">bbq</string>
+    <string name="blink_collect">收藏</string>
+    <string name="blink_permission_management">权限管理</string>
+    <string name="blink_about">关于</string>
+    <string name="blink_ota_update">OTA升级</string>
+    <string name="blink_use_guide">使用引导</string>
+    <string name="blink_start_continuous_search">开启持续搜索</string>
+    <string name="blink_bt_connect">CONNECT</string>
 </resources>

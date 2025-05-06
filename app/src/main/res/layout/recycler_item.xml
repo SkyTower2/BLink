@@ -7,10 +7,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
@@ -24,33 +24,39 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
 
                 <TextView
-                    android:id="@+id/item_name_tv"
+                    android:id="@+id/item_name_ble"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Google Inc."
+                    android:layout_height="match_parent"
+                    android:text="蓝牙名称"
                     android:textColor="#222"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/item_current_price"
+                <Button
+                    android:id="@+id/item_connect_ble"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/item_trend_flag"
-                    android:text="$121.47"
-                    android:textColor="#222" />
+                    android:layout_toLeftOf="@+id/item_select_menu"
+                    android:background="@drawable/connect_bg_bt"
+                    android:text="@string/blink_bt_connect"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    app:backgroundTint="@null" />
 
-                <ImageView
-                    android:id="@+id/item_trend_flag"
-                    android:layout_width="8dp"
-                    android:layout_height="13dp"
+                <ImageButton
+                    android:id="@+id/item_select_menu"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/connect_bg_bt"
                     android:scaleType="centerInside"
-                    android:src="@drawable/down_green" />
+                    android:src="@drawable/moremenu" />
 
             </RelativeLayout>
 
@@ -60,19 +66,20 @@
                 android:layout_marginTop="10dp">
 
                 <TextView
+                    android:id="@+id/item_mac_ble"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="6dp"
-                    android:text="Technology"
+                    android:text="76:a5:43:3b:4c:5d"
                     android:textColor="#888"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/item_gross"
+                    android:id="@+id/item_rssi_ble"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
-                    android:text="+1.23 (8.98%)"
+                    android:text="-90dBm"
                     android:textColor="@color/green" />
 
             </FrameLayout>

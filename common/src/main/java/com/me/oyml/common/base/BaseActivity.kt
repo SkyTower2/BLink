@@ -10,7 +10,7 @@ import com.me.oyml.common.extensions.getViewBinding
 import com.me.oyml.common.utils.ViewModelUtils
 
 abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel>(
-    private val factory: ViewModelProvider.Factory? = null
+    private val factory: ViewModelProvider.Factory?
 ) : AppCompatActivity(), BaseBinding<VB> {
     protected val mBinding: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
         getViewBinding(layoutInflater)

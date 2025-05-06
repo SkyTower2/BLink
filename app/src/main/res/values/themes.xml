@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- LIGHT -->
-    <!--  在AndroidManifest.xml中使用主题  -->
+    <!-- 夜间主题 -->
     <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- 导航抽屉样式 -->
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
+        <!-- 自定义导航抽屉头部样式 -->
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
 
+        <!-- 主色变体（深色版本） -->
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
 
-        <!-- CAB :D -->
+        <!-- ActionMode 覆盖内容区域 -->
         <item name="windowActionModeOverlay">true</item>
 
-        <!-- 设置状态栏颜色（推荐方案） -->
+        <!-- 状态栏颜色与主色变体一致 -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="SampleApp.DayNight.Compact" parent="Theme.Material3.Light.NoActionBar">
-        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
-        <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>
+    <!-- 日间主题 -->
+    <!--    <style name="SampleApp.DayNight.Compact" parent="Theme.Material3.Light.NoActionBar">-->
+    <!--        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>-->
+    <!--        &lt;!&ndash; 自定义导航抽屉头部样式 &ndash;&gt;-->
+    <!--        <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>-->
 
-        <item name="android:windowTranslucentStatus">true</item>
+    <!--        &lt;!&ndash; 半透明状态栏（内容延伸至状态栏下方） &ndash;&gt;-->
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
 
-        <!-- CAB :D -->
-        <item name="windowActionModeOverlay">true</item>
-    </style>
+    <!--        &lt;!&ndash; CAB :D &ndash;&gt;-->
+    <!--        <item name="windowActionModeOverlay">true</item>-->
+    <!--    </style>-->
 
-    <style name="SampleApp.DayNight.Persistent" parent="Theme.Material3.Light.NoActionBar">
-        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
+    <!-- 持久化主题 -->
+    <!--    <style name="SampleApp.DayNight.Persistent" parent="Theme.Material3.Light.NoActionBar">-->
+    <!--        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>-->
 
-        <item name="android:windowTranslucentStatus">true</item>
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
 
-        <!-- CAB :D -->
-        <item name="windowActionModeOverlay">true</item>
-    </style>
+    <!--        &lt;!&ndash; CAB :D &ndash;&gt;-->
+    <!--        <item name="windowActionModeOverlay">true</item>-->
+    <!--    </style>-->
 
-    <style name="SampleApp.DayNight.DarkActionBar" parent="Theme.Material3.DayNight" />
+    <!--    <style name="SampleApp.DayNight.DarkActionBar" parent="Theme.Material3.DayNight" />-->
 
-    <!-- 设置启动页的 style -->
-    <style name="Theme.Pager" parent="SampleApp.DayNight" >
+
+    <!-- 启动页主题 -->
+    <style name="Theme.Pager" parent="SampleApp.DayNight">
+        <!-- 启动页背景（如闪屏） -->
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

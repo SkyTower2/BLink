@@ -1,9 +1,11 @@
 package com.me.oyml.blink.app;
 
+import com.alibaba.android.arouter.BuildConfig;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.me.oyml.blink.R;
-import com.me.oyml.blink.ui.BleRssiDevice;
-import com.me.oyml.blink.ui.MainActivity;
-import com.me.oyml.blink.ui.MyBleWrapperCallback;
+import com.me.oyml.blink.bean.BleRssiDevice;
+import com.me.oyml.blink.ui.activity.MainActivity;
+import com.me.oyml.blink.callback.MyBleWrapperCallback;
 import com.me.oyml.common.crash.CaocConfig;
 import com.me.oyml.common.utils.KLog;
 import com.me.oyml.common.base.BaseApplication;
@@ -35,6 +37,12 @@ public class AppApplication extends BaseApplication {
 
         //初始化蓝牙
         initBle();
+
+        if (BuildConfig.DEBUG) {      // 这两行必须写在init之前，否则这些配置在init过程中将无效
+            ARouter.openLog();     // 打印日志
+            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        }
+        ARouter.init(mApplication); // 尽可能早，推荐在Application中初始化
     }
 
 

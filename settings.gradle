@@ -16,11 +16,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // 添加jitPack仓库使用
+        maven { url 'https://jitpack.io' }
     }
 }
 
 rootProject.name = "BLink"
 include ':app'
 include ':common'
-include ':core'
 include ':module_ble'
