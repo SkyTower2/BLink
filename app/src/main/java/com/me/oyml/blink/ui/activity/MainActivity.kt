@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.me.oyml.blink.R
 import com.me.oyml.blink.databinding.MainActivityBinding
+import com.me.oyml.blink.ui.fragment.AboutFragment
 import com.me.oyml.blink.ui.fragment.SearchListFragment
 import com.me.oyml.blink.ui.fragment.SearchSettingsFragment
 import com.me.oyml.blink.utils.CrossfadeWrapper
@@ -243,6 +244,11 @@ class MainActivity : BaseVBActivity<MainActivityBinding>() {
                 // 加载关于页
                 is MainViewModel.NavCommand.ShowAbout -> {
                     KLog.d("加载关于页")
+
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.crossfade_content, AboutFragment())
+                        .commit()
                 }
 
                 // 加载OTA升级页
